@@ -14,12 +14,12 @@ const ShowMoreText = ({ text }) => {
       <p>
         {displayText}
         {text?.length > 200 && !isExpanded && "..."}
+        {text?.length > 200 && (
+          <button id="myseemoreBtn" onClick={toggleExpanded}>
+            {isExpanded ? "" : "See More"}
+          </button>
+        )}
       </p>
-      {text?.length > 200 && (
-        <button id="myseemoreBtn" onClick={toggleExpanded}>
-          {isExpanded ? "See Less" : "See More"}
-        </button>
-      )}
     </div>
   );
 };

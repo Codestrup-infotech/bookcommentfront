@@ -11,7 +11,7 @@ const CommentsList = ({
   replyText,
 }) => {
   return (
-    <>
+    <div>
       {comments.map((comment, index) => (
         <Comment
           key={index}
@@ -24,7 +24,7 @@ const CommentsList = ({
           replyText={replyText}
         />
       ))}
-    </>
+    </div>
   );
 };
 

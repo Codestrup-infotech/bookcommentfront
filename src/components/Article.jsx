@@ -31,6 +31,10 @@ const Article = () => {
   };
 
   const handleReplySubmit = async (e) => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    setUserId(params.get("userId"));
+    setBookId(params.get("bookId"));
     if (replyText.trim() !== "") {
       try {
         const response = await axios({
@@ -38,7 +42,7 @@ const Article = () => {
           method: "POST",
           data: {
             book: bookData?._id,
-            user: "667288b88ccc3b193bf78580",
+            user: params.get("userId"),
             text: replyText,
           },
         });
@@ -56,6 +60,10 @@ const Article = () => {
   };
 
   const addCommentBook = async () => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    setUserId(params.get("userId"));
+    setBookId(params.get("bookId"));
     if (replyText.trim() !== "") {
       try {
         const response = await axios({
@@ -63,7 +71,7 @@ const Article = () => {
           method: "POST",
           data: {
             bookId: bookData?._id,
-            user: "667288b88ccc3b193bf78580",
+            user: params.get("userId"),
             text: replyText,
           },
         });
@@ -191,7 +199,7 @@ const Article = () => {
                     </div>
                   </div>
                 </div>
-                <div className="reply-comment">
+                <div className="reply-comment" ref={fullCommentRef}>
                   <div id={`text-comment`} className="collapse text-comment">
                     <textarea
                       placeholder="Reply to this contribution"
@@ -218,15 +226,19 @@ const Article = () => {
                     </div>
                   </div>
                 </div>
-                <CommentsList
-                  comments={comments}
-                  handleLikeClick={handleLikeClick}
-                  handleContributeClick={handleContributeClick}
-                  handleReplyChange={handleReplyChange}
-                  handleCancelReply={handleCancelReply}
-                  handleReplySubmit={handleReplySubmit}
-                  replyText={replyText}
-                />
+                <div className="full-comment-community-box">
+                  <div className="media">
+                    <CommentsList
+                      comments={comments}
+                      handleLikeClick={handleLikeClick}
+                      handleContributeClick={handleContributeClick}
+                      handleReplyChange={handleReplyChange}
+                      handleCancelReply={handleCancelReply}
+                      handleReplySubmit={handleReplySubmit}
+                      replyText={replyText}
+                    />
+                  </div>
+                </div>
                 <div className="load-more-contrubute">
                   <button>Load more contributions</button>
                 </div>
