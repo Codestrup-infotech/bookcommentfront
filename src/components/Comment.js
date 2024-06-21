@@ -62,10 +62,6 @@ const Comment = ({
                 handleLike(comment?._id);
               }}
             >
-              {/* <i
-              color={`${liked ? "blue" : "black !important"}`}
-              className={`fa-regular fa-thumbs-up `}
-            ></i> */}
               <i
                 className={` ${
                   getLike(comment?.likes)
@@ -73,7 +69,10 @@ const Comment = ({
                     : "fa-regular fa-thumbs-up"
                 }`}
               ></i>
-              <span className="like-hit-btn"> Like</span>
+              <span className="like-hit-btn">
+                {" "}
+                {getLike(comment?.likes) ? "Unlike" : "Like"}
+              </span>
             </a>
             <div className="d-flex reaction-buttons">
               <img src="like.PNG" alt="image" />
@@ -131,18 +130,20 @@ const Comment = ({
             </div>
           </div>
         </div>
-        {comment?.replies?.map((reply, index) => (
-          <Comment
-            key={index}
-            comment={reply}
-            handleLikeClick={handleLikeClick}
-            handleContributeClick={handleContributeClick}
-            handleReplyChange={handleReplyChange}
-            handleCancelReply={handleCancelReply}
-            handleReplySubmit={handleReplySubmit}
-            replyText={replyText}
-          />
-        ))}
+        <div className="box-noborder">
+          {comment?.replies?.map((reply, index) => (
+            <Comment
+              key={index}
+              comment={reply}
+              handleLikeClick={handleLikeClick}
+              handleContributeClick={handleContributeClick}
+              handleReplyChange={handleReplyChange}
+              handleCancelReply={handleCancelReply}
+              handleReplySubmit={handleReplySubmit}
+              replyText={replyText}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

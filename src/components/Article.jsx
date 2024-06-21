@@ -13,7 +13,8 @@ const Article = () => {
   const [userId, setUserId] = useState(null);
   const [bookId, setBookId] = useState(null);
   // query
-
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
   console.log(userId, bookId);
 
   const handleScrollToUserTitle = (refName) => {
@@ -29,7 +30,13 @@ const Article = () => {
   const handleReplyChange = (event) => {
     setReplyText(event.target.value);
   };
-
+  const getLike = (arr) => {
+    return arr?.some((element) => element._id === params.get("userId"));
+  };
+  const handleLike = (id) => {
+    handleBookLikeClick(id);
+    setLiked(!liked);
+  };
   const handleReplySubmit = async (e) => {
     const search = window.location.search;
     const params = new URLSearchParams(search);
@@ -87,7 +94,6 @@ const Article = () => {
       }
     }
   };
-
   const handleLikeClick = async (e) => {
     const search = window.location.search;
     const params = new URLSearchParams(search);
@@ -96,6 +102,29 @@ const Article = () => {
     try {
       const response = await axios({
         url: `http://192.168.1.111:5000/comments/${e}/like`,
+        method: "POST",
+        data: {
+          userId: params.get("userId"),
+        },
+      });
+
+      if (response.status === 200) {
+        getBook();
+      } else {
+        console.log("Failed to like comment");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleBookLikeClick = async (e) => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    setUserId(params.get("userId"));
+    setBookId(params.get("bookId"));
+    try {
+      const response = await axios({
+        url: `http://192.168.1.111:5000/books/${e}/like`,
         method: "POST",
         data: {
           userId: params.get("userId"),
@@ -167,6 +196,35 @@ const Article = () => {
                       </a>
                     </strong>
                   </p>
+                </div>
+                <div className="like-unlike d-flex flex-row">
+                  <div className="d-flex like-btn">
+                    <a
+                      href="#"
+                      className="like-anchor"
+                      onClick={() => {
+                        handleLike(bookData?._id);
+                      }}
+                    >
+                      <i
+                        className={` ${
+                          getLike(bookData?.likes)
+                            ? "fa-solid fa-thumbs-up"
+                            : "fa-regular fa-thumbs-up"
+                        }`}
+                      ></i>
+                      <span className="like-hit-btn">
+                        {" "}
+                        {getLike(bookData?.likes) ? "Unlike" : "Like"}
+                      </span>
+                    </a>
+                    <div className="d-flex reaction-buttons">
+                      <img src="like.PNG" alt="image" />
+                      <span className="like-count">
+                        {bookData?.likes?.length}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div className="earn-community-box">
                   <div className="media">

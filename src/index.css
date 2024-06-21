@@ -230,6 +230,7 @@ a.unlike-anchor,
 .reply-anchor {
   padding: 8px 8px;
   border-radius: 2px;
+  text-decoration: none;
 }
 .far{
   margin-right: 6px;
@@ -322,6 +323,10 @@ a.reply-anchor:hover {
   /* background-color: #fdf6ec; */
   border-radius: 8px;
   margin-top: 18px;
+}
+
+.box-noborder>.media-right>.box-comment{
+border: none;
 }
 
 #text-comment textarea,
