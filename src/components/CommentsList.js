@@ -9,6 +9,7 @@ const CommentsList = ({
   handleCancelReply,
   handleReplySubmit,
   replyText,
+
 }) => {
   return (
     <div>
@@ -22,6 +23,7 @@ const CommentsList = ({
           handleCancelReply={handleCancelReply}
           handleReplySubmit={handleReplySubmit}
           replyText={replyText}
+   
         />
       ))}
     </div>

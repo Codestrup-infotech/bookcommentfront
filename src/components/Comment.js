@@ -24,7 +24,9 @@ const Comment = ({
     handleLikeClick(id);
     setLiked(!liked);
   };
+
   const handleContributeClick = (commentId) => {
+    console.log("function called");
     if (commentRefs.current[commentId]) {
       commentRefs.current[commentId].scrollIntoView({ behavior: "smooth" });
     }
@@ -73,10 +75,10 @@ const Comment = ({
                     : "fa-regular fa-thumbs-up"
                 }`}
               ></i>
-              <span className="like-hit-btn"> Like</span>
+              {/* <span className="like-hit-btn"> Like</span> */}
             </a>
             <div className="d-flex reaction-buttons">
-              <img src="like.PNG" alt="image" />
+              {/* <img src="like.PNG" alt="image" /> */}
               <span className="like-count">{comment?.likes?.length}</span>
             </div>
           </div>
@@ -91,6 +93,7 @@ const Comment = ({
                 <i className="far fa-comment-dots"></i>
                 <span
                   className="reply-btn"
+                  data-bs-toggle="collapse"
                   onClick={() => handleContributeClick(comment?._id)}
                 >
                   Reply
@@ -124,13 +127,25 @@ const Comment = ({
               </button>
               <button
                 className="reply-comment-btn"
-                onClick={() => handleReplySubmit(comment?._id)}
+                onClick={() => {
+                  handleReplySubmit(comment?._id);
+                }}
               >
-                Reply
+                <a
+                  href={`#text-comment-${comment?._id}`}
+                  data-bs-toggle="collapse"
+                  style={{
+                    color:'white'
+                  }}
+                >
+                  {/* Reply */}
+                  Add Contribution
+                </a>
               </button>
             </div>
           </div>
         </div>
+
         {comment?.replies?.map((reply, index) => (
           <Comment
             key={index}

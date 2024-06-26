@@ -35,6 +35,7 @@ const Article = () => {
     const params = new URLSearchParams(search);
     setUserId(params.get("userId"));
     setBookId(params.get("bookId"));
+
     if (replyText.trim() !== "") {
       try {
         const response = await axios({
@@ -236,12 +237,13 @@ const Article = () => {
                       handleCancelReply={handleCancelReply}
                       handleReplySubmit={handleReplySubmit}
                       replyText={replyText}
+                     
                     />
                   </div>
                 </div>
-                <div className="load-more-contrubute">
+                {/* <div className="load-more-contrubute">
                   <button>Load more contributions</button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
