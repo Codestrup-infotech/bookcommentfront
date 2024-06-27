@@ -4,7 +4,6 @@ import ShowMoreText from "./ShowMoreText"; // Ensure the path is correct
 const Comment = ({
   comment,
   handleLikeClick,
-  // handleContributeClick,
   handleReplyChange,
   handleCancelReply,
   handleReplySubmit,
@@ -14,11 +13,8 @@ const Comment = ({
   const commentRefs = useRef({});
   const search = window.location.search;
   const params = new URLSearchParams(search);
-  const getLike = (arr) => {
-    return arr?.some((element) => element._id === params.get("userId"));
-  };
-
-  console.log(liked, "cccc");
+  const getLike = (arr) =>
+    arr?.some((element) => element._id === params.get("userId"));
 
   const handleLike = (id) => {
     handleLikeClick(id);
@@ -26,7 +22,6 @@ const Comment = ({
   };
 
   const handleContributeClick = (commentId) => {
-    console.log("function called");
     if (commentRefs.current[commentId]) {
       commentRefs.current[commentId].scrollIntoView({ behavior: "smooth" });
     }
@@ -46,7 +41,7 @@ const Comment = ({
               <h5>{comment?.user?.username}</h5>
             </div>
             <div className="user-designation one-ellipsis">
-              <p>{comment?.user?.userdescription} </p>
+              <p>{comment?.user?.userdescription}</p>
             </div>
           </a>
         </div>
@@ -60,14 +55,8 @@ const Comment = ({
             <a
               href="#"
               className="like-anchor"
-              onClick={() => {
-                handleLike(comment?._id);
-              }}
+              onClick={() => handleLike(comment?._id)}
             >
-              {/* <i
-              color={`${liked ? "blue" : "black !important"}`}
-              className={`fa-regular fa-thumbs-up `}
-            ></i> */}
               <i
                 className={` ${
                   getLike(comment?.likes)
@@ -75,10 +64,8 @@ const Comment = ({
                     : "fa-regular fa-thumbs-up"
                 }`}
               ></i>
-              {/* <span className="like-hit-btn"> Like</span> */}
             </a>
             <div className="d-flex reaction-buttons">
-              {/* <img src="like.PNG" alt="image" /> */}
               <span className="like-count">{comment?.likes?.length}</span>
             </div>
           </div>
@@ -93,7 +80,6 @@ const Comment = ({
                 <i className="far fa-comment-dots"></i>
                 <span
                   className="reply-btn"
-                  data-bs-toggle="collapse"
                   onClick={() => handleContributeClick(comment?._id)}
                 >
                   Reply
@@ -109,7 +95,6 @@ const Comment = ({
           <div
             id={`text-comment-${comment?._id}`}
             className="collapse text-comment"
-            // ref={commentRefs}
           >
             <textarea
               placeholder="Reply to this contribution"
@@ -125,23 +110,18 @@ const Comment = ({
                   Cancel
                 </a>
               </button>
-              <button
-                className="reply-comment-btn"
-                onClick={() => {
-                  handleReplySubmit(comment?._id);
-                }}
+              <a
+                href={`#text-comment-${comment?._id}`}
+                data-bs-toggle="collapse"
+                style={{ color: "white" }}
               >
-                <a
-                  href={`#text-comment-${comment?._id}`}
-                  data-bs-toggle="collapse"
-                  style={{
-                    color:'white'
-                  }}
+                <button
+                  className="reply-comment-btn"
+                  onClick={() => handleReplySubmit(comment?._id)}
                 >
-                  {/* Reply */}
-                  Add Contribution
-                </a>
-              </button>
+                  Reply
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -151,7 +131,6 @@ const Comment = ({
             key={index}
             comment={reply}
             handleLikeClick={handleLikeClick}
-            handleContributeClick={handleContributeClick}
             handleReplyChange={handleReplyChange}
             handleCancelReply={handleCancelReply}
             handleReplySubmit={handleReplySubmit}

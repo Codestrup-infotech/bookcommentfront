@@ -188,14 +188,15 @@ const Article = () => {
                             </a>
                           </strong>
                         </p>
-                        <button
-                          className="contribute-btn"
-                          onClick={handleContributeClick}
-                        >
-                          <a href={`#text-comment`} data-bs-toggle="collapse">
+
+                        <a href={`#text-comment`} data-bs-toggle="collapse">
+                          <button
+                            className="contribute-btn"
+                            onClick={handleContributeClick}
+                          >
                             Start a contribution
-                          </a>
-                        </button>
+                          </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -203,7 +204,8 @@ const Article = () => {
                 <div className="reply-comment" ref={fullCommentRef}>
                   <div id={`text-comment`} className="collapse text-comment">
                     <textarea
-                      placeholder="Reply to this contribution"
+                      // placeholder="Reply to this contribution"
+                      placeholder="Add contribution"
                       value={replyText}
                       onChange={handleReplyChange}
                     />
@@ -237,13 +239,9 @@ const Article = () => {
                       handleCancelReply={handleCancelReply}
                       handleReplySubmit={handleReplySubmit}
                       replyText={replyText}
-                     
                     />
                   </div>
                 </div>
-                {/* <div className="load-more-contrubute">
-                  <button>Load more contributions</button>
-                </div> */}
               </div>
             </div>
           </div>
